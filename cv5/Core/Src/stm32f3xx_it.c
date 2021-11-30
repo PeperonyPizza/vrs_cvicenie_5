@@ -186,7 +186,7 @@ void SysTick_Handler(void)
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
+
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
@@ -198,6 +198,37 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f3xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles EXTI line 4 interrupt.
+  */
+void EXTI4_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI4_IRQn 0 */
+	  if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_4) != RESET)
+	  {
+	    LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_4);
+
+	    if(checkButtonState(GPIOB,
+
+	    						LL_GPIO_PIN_4,
+	    						0,
+	    						100,
+	    						90))
+	    	{
+	    		switch_state ^= 1;
+	    	}
+
+  /* USER CODE END EXTI4_IRQn 0 */
+
+    /* USER CODE BEGIN LL_EXTI_LINE_4 */
+
+    /* USER CODE END LL_EXTI_LINE_4 */
+  }
+  /* USER CODE BEGIN EXTI4_IRQn 1 */
+
+  /* USER CODE END EXTI4_IRQn 1 */
+}
 
 /* USER CODE BEGIN 1 */
 
